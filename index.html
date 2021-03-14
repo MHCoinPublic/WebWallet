@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>MHCoin Web Wallet</title>
+  <!-- SEO Stuff -->
+  <meta name="description" content="MHCoin Web Wallet">
+  <meta name="keywords" content="wallet, webwallet, duinocoin, duco, duco webwallet">
+  <link rel="canonical" href="index.html" />
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#f0932b">
+  <!-- Open Graph Metadata -->
+  <meta property="og:site_name" content="MHCoin Web Wallet" />
+  <meta property="og:title" content="MHCoin Web Wallet" />
+  <meta property="og:description" content="MHCoin Web Wallet" />
+  <meta property="og:type" content="website" />
+  <!-- Twitter Metadata -->
+  <meta name="twitter:title" content="MHCoin Web Wallet">
+  <meta name="twitter:description" content="MHCoin Web Wallet">
+  <!-- Linked content -->
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <script
+    src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2Ces2016%2Ces2017%2Ces2018%2Ces2019%2Ces5%2Ces6%2Ces7%2Cdefault%2Cblissfuljs%2CIntl%2CCSS.supports%2CDate.now%2CDate.prototype.toISOString%2CDocument%2CElement.prototype.classList%2CFunction.name%2CFunction.prototype.bind%2CFunction.prototype.name%2CHTMLDocument%2CJSON%2CNumber.isFinite%2CNumber.isInteger%2CNumber.isNaN%2CNumber.isSafeInteger%2CNumber.parseFloat%2CNumber.parseInt%2CObject.create%2CObject.assign%2CObject.keys%2CObject.values%2CString.prototype.includes%2CString.prototype.trim%2CString.prototype.startsWith%2Cconsole.log%2Cdom4%2Ces2021%2Cfetch%2Cwindow.scrollBy%2Cwindow.scroll%2C%7Ehtml5-elements%2Cviewport%2Csmoothscroll%2CsetImmediate%2CscrollY%2CscrollX%2C%7Eviewport%2CscrollIntoView%2CscrollBy%2Cscroll%2Cscreen.orientation%2Cperformance.now%2CinnerHeight%2CinnerWidth%2Chtml5shiv%2CglobalThis%2Ccss_fq%2Cdocument%2Cdocument.querySelector%2Cdocument.getElementsByClassName"></script>
+
+  <script src="assets/js/Chart.min.js"></script>
+  <script src="assets/js/Functions.js"></script>
+  <script src="https://use.fontawesome.com/d229039227.js"></script>
+</head>
+
+<body>
+  <div class="login">
+    <div class="login-header"><br>
+      <h2>MHCoin Wallet</h2>
+      <p>Войти в аккаунт</p>
+    </div>
+    <form class="login-container">
+      <p>
+        <input type="text" id="username" placeholder="Ник" default="mhc">
+      </p>
+      <p>
+        <input type="password" id="password" placeholder="Пароль" default="DUCODUCODUCO">
+      </p>
+      <div id="loginInput" class="buttons">
+        <button type='button' class="btn-custom" id="login">Вход</button>
+      </div>
+      <hr />
+      <div class="login-footer">
+        <h4 id="loginstatus">
+          Привет!
+        </h4>
+      </div>
+      <div class="hide" id="error">Ошибка (</div>
+    </form>
+  </div>
+
+  <div id="loader">
+    <div class="centerLoader">
+        <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="circle" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg>
+    </div>
+  </div>
+
+  <div class="wallet">
+    <div class="walletMain">
+      <div class="sideBar">
+        <h2 id="navbar-name"></h2>
+        <p id="date"></p>
+        <div class="sideBar-body">
+          <ul>
+            <li>
+              <a href="https://mhc.lapki.dev/"><span>MHCoin explorer</span></a>
+            </li>
+            <li>
+              <a href="https://t.me/joinchat/KjFam0tUwsNDIxhr__BJ3w"><span>Telegram чат</span></a>
+            </li>
+            <li>
+              <a href="https://github.com/MHCoinPublic"><span>GitHub</span></a>
+            </li>
+            <li>
+              <a href="index.html#!" class="modal_trigger" data-modal="#donate">
+                Донат
+              </a>
+            </li>
+            <li>
+              <label id="switch" class="switch">
+                <input type="checkbox" id="theme-changer">
+                <span class="slider round"></span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="hamburger-menu">
+        <input id="menu__toggle" type="checkbox" />
+        <label class="menu__btn" for="menu__toggle">
+          <span></span>
+        </label>
+    
+        <ul class="menu__box">
+          <p id="datePhone"></p>
+            <li>
+              <a href="https://mhc.lapki.dev/"><span>MHCoin explorer</span></a>
+            </li>
+            <li>
+              <a href="https://t.me/joinchat/KjFam0tUwsNDIxhr__BJ3w"><span>Telegram чат</span></a>
+            </li>
+            <li>
+              <a href="https://github.com/MHCoinPublic"><span>GitHub</span></a>
+            </li>
+            <li>
+              <a href="index.html#!" class="modal_trigger" data-modal="#donate">
+                Донат
+              </a>
+            </li>
+          <li>
+            <label id="switch" class="switch">
+              <input type="checkbox" id="theme-changer">
+              <span class="slider round"></span>
+            </label>
+          </li>
+        </ul>
+      </div>
+      <div class="content">
+        <div class="spider">
+          <img src="assets/images/spider.png" alt="spider icon">
+        </div>
+
+        <div id="donate" class="modal modal_bg">
+          <div class="modal_dialog">
+            <div class="modal_content">
+              <div class="modal_header">
+                <div class="modal_title">
+                  <h2 class="modal_title-text">Донат</h2>
+                </div>
+
+                <button class="modal_close">
+                  X
+                </button>
+              </div>
+
+              <div class="modal_text">
+                Bitcoin: 
+                <form>
+                <input type="text" value="1LAPkiDEVytqiPc389GWusxqoqvkXS9hbE" id="btc">
+                <div class="tooltip">
+                  <button id="donate" data-id="btc" data-tooltip="btc-toolTip">
+                    Копировать
+                  </button>
+                </div>
+              </form><br/>
+
+                Monero: 
+                <form>
+                <input type="text"
+                  value="49LapkiCFBuQwj7KpeXGyHfdQ2F2EMn6BLiPvJ3sqwUkjGBd7FZQgxGipvsPChF41vawjnFmcmGPTXS72kxMXKu99vMfH41"
+                  id="xmr">
+                <div class="tooltip">
+                  <button id="donate" data-id="xmr" data-tooltip="xmr-toolTip">
+                    Copy
+                  </button>
+                </div>
+              </form><br/>
+              
+              </div>
+              <div class="modal_footer">
+                Если вы хотите задонатить другими способами <a style="color: #f39c12"
+                  href="https://t.me/httsmvkcom">напишите нам</a>.
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="data-card col-xl-3 col-lg-3 col-md-6 col-sm-11 center">
+            <div class="wrap">
+              <h4 class="data-card__title">Ваш баланс</h4>
+              <span class="data-card__count" id="balancetext">Загрузка</span>
+            </div>
+          </div>
+
+          <div class="data-card col-xl-3 col-lg-3 col-md-6 col-sm-11 center">
+            <div class="wrap">
+              <h4 class="data-card__title">1 MHC стоит</h4>
+              <span class="data-card__count" id="ducoprice">Загрузка</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+        <div class="data-card col-3 col-sm-11 col-md-6 col-lg-3 center">
+          <div class="funds wrap">
+            <br>
+            <h4 class="data-card__title">Отправить средства</h4>
+            <p></p>
+            <input type="text" id="recipient" placeholder="Получатель">
+            <p></p>
+            <input type="text" id="amountInput" placeholder="Сумма">
+            <p style="margin: 6px;"></p>
+            <div id="fundInput" class="buttons">
+              <button type='button' class="btn-custom" id="send">Отправить</button>
+            </div>
+            <hr style="visibility: hidden;"/>
+            <div class="hide" id="notificate">
+              Успешно отправлено
+              <label class="close alertC">
+                X
+              </label>
+            </div>
+            <div class="hide" id="notificateErr">
+              Ошибка
+              <label class="close alertCErr">
+                X
+              </label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+        <hr style="border-color: #1b1f2e !important;"/>
+
+      </div>
+      <div class="footer">MHCoin WebWallet made by LDarki and edited by Lapki 2021
+        | Background photo by Lapki.</div>
+    </div>
+  </div>
+  </div>
+  <div id="jwt" style="display:none"></div>
+  <script src="assets/js/coreUI.js"></script>
+</body>
+
+</html>
