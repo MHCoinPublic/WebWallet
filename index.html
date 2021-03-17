@@ -1,238 +1,364 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>MHCoin | Web Wallet</title>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>MHCoin Web Wallet</title>
-  <!-- SEO Stuff -->
-  <meta name="description" content="MHCoin Web Wallet">
-  <meta name="keywords" content="wallet, webwallet, duinocoin, duco, duco webwallet">
-  <link rel="canonical" href="index.html" />
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#f0932b">
-  <!-- Open Graph Metadata -->
-  <meta property="og:site_name" content="MHCoin Web Wallet" />
-  <meta property="og:title" content="MHCoin Web Wallet" />
-  <meta property="og:description" content="MHCoin Web Wallet" />
-  <meta property="og:type" content="website" />
-  <!-- Twitter Metadata -->
-  <meta name="twitter:title" content="MHCoin Web Wallet">
-  <meta name="twitter:description" content="MHCoin Web Wallet">
-  <!-- Linked content -->
+        <!-- SEO Stuff -->
+        <meta name="description" content="MHCoin Web Wallet" />
+        <meta name="keywords" content="Wallet, webWallet, mhcoin, mhc, mhcoin webWallet, web Wallet" />
+        <link rel="canonical" href="index.html" />
+        <meta name="robots" content="index, follow" />
+        <meta name="theme-color" content="#f0932b" />
 
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+        <!-- Preload Background Images -->
+        <link rel="preload" as="image" href="https://lapki.dev/space_5.webp" />
 
-  <link href="assets/css/main.css" rel="stylesheet">
+        <!-- Bulma -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-pageloader@0.3.0/dist/css/bulma-pageloader.min.css" />
 
-  <script
-    src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2Ces2016%2Ces2017%2Ces2018%2Ces2019%2Ces5%2Ces6%2Ces7%2Cdefault%2Cblissfuljs%2CIntl%2CCSS.supports%2CDate.now%2CDate.prototype.toISOString%2CDocument%2CElement.prototype.classList%2CFunction.name%2CFunction.prototype.bind%2CFunction.prototype.name%2CHTMLDocument%2CJSON%2CNumber.isFinite%2CNumber.isInteger%2CNumber.isNaN%2CNumber.isSafeInteger%2CNumber.parseFloat%2CNumber.parseInt%2CObject.create%2CObject.assign%2CObject.keys%2CObject.values%2CString.prototype.includes%2CString.prototype.trim%2CString.prototype.startsWith%2Cconsole.log%2Cdom4%2Ces2021%2Cfetch%2Cwindow.scrollBy%2Cwindow.scroll%2C%7Ehtml5-elements%2Cviewport%2Csmoothscroll%2CsetImmediate%2CscrollY%2CscrollX%2C%7Eviewport%2CscrollIntoView%2CscrollBy%2Cscroll%2Cscreen.orientation%2Cperformance.now%2CinnerHeight%2CinnerWidth%2Chtml5shiv%2CglobalThis%2Ccss_fq%2Cdocument%2Cdocument.querySelector%2Cdocument.getElementsByClassName"></script>
+        <style>
+            html,
+            body {
+                margin: 0;
+                height: 100%;
+                overflow: hidden;
+            }
+            .is-primary {
+                /* Override Bulmas primary color to Duco-Colored gradient*/
+                background: linear-gradient(160deg, #0984e3, #6c5ce7, #e84393) !important;
+            }
+            body {
+                background-size: cover !important;
+                background-attachment: fixed !important;
+                width: 100% !important;
+                min-height: -webkit-fill-available;
+                overflow-x: hidden !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                background-repeat: no-repeat !important;
+            }
+            .balanceT {
+                width: 100%;
+                max-height: 30vh;
+                overflow-x: hidden !important;
+                overflow-y: scroll !important;
+            }
+            .balanceT table {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                border: 1px solid var(--light-bg);
+                border-collapse: collapse;
+            }
+            .balanceTC .caption {
+                font-size: 1.5em !important;
+                margin: 0.5em 0 0.75em;
+            }
+            .balanceT table tr {
+                background-color: var(--hover) !important;
+                border: 1px solid var(--light-bg) !important;
+                padding: 0.35em !important;
+            }
+            .balanceT table th,
+            .balanceT table td {
+                padding: 0.625em !important;
+                text-align: center !important;
+            }
+            .balanceT table th {
+                font-size: 0.85em !important;
+                letter-spacing: 0.1em !important;
+                text-transform: uppercase !important;
+            }
+            .positive {
+                color: #009432 !important;
+            }
+            .negative {
+                color: #ea2027 !important;
+            }
+        </style>
 
-  <script src="assets/js/Chart.min.js"></script>
-  <script src="assets/js/Functions.js"></script>
-  <script src="https://use.fontawesome.com/d229039227.js"></script>
-</head>
+        <!-- JS -->
+        <script type="text/javascript" src="http://cdn.rawgit.com/h2non/jsHashes/master/hashes.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js" integrity="sha256-MAgcygDRahs+F/Nk5Vz387whB4kSK9NXlDN3w58LLq0=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
 
-<body>
-  <div class="login">
-    <div class="login-header"><br>
-      <h2>MHCoin Wallet</h2>
-      <p>Войти в аккаунт</p>
-    </div>
-    <form class="login-container">
-      <p>
-        <input type="text" id="username" placeholder="Ник" default="mhc">
-      </p>
-      <p>
-        <input type="password" id="password" placeholder="Пароль" default="DUCODUCODUCO">
-      </p>
-      <div id="loginInput" class="buttons">
-        <button type='button' class="btn-custom" id="login">Вход</button>
-      </div>
-      <hr />
-      <div class="login-footer">
-        <h4 id="loginstatus">
-          Привет!
-        </h4>
-      </div>
-      <div class="hide" id="error">Ошибка (</div>
-    </form>
-  </div>
+        <!-- WebWallet -->
+        <script type="text/javascript">
+            let versionReceived = false;
+            let loggedIn = false;
+            let clickcount = 0;
+            let balance = 0;
+            let curr_bal = 0;
+            let profitcheck = 0;
+            let ducoUsdPrice = 0.0065;
+            let sending = false;
 
-  <div id="loader">
-    <div class="centerLoader">
-        <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="circle" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg>
-    </div>
-  </div>
+            window.addEventListener("load", function () {
+                document.body.background = "https://lapki.dev/space_5.webp";
+                // THEME SWITCHER
+                document.getElementById("darkmode").onclick = function () {
+                    clickcount++;
+                    if (clickcount % 2 == 1) {
+                        $("head").append('<link rel="stylesheet" type="text/css" href="https://unpkg.com/bulma-prefers-dark">');
+                    }
+                    if (clickcount % 2 == 0) {
+                        $("head").append('<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">');
+                    }
+                };
 
-  <div class="wallet">
-    <div class="walletMain">
-      <div class="sideBar">
-        <h2 id="navbar-name"></h2>
-        <p id="date"></p>
-        <div class="sideBar-body">
-          <ul>
-            <li>
-              <a href="https://mhc.lapki.dev/"><span>MHCoin explorer</span></a>
-            </li>
-            <li>
-              <a href="https://t.me/joinchat/KjFam0tUwsNDIxhr__BJ3w"><span>Telegram чат</span></a>
-            </li>
-            <li>
-              <a href="https://github.com/MHCoinPublic"><span>GitHub</span></a>
-            </li>
-            <li>
-              <a href="index.html#!" class="modal_trigger" data-modal="#donate">
-                Донат
-              </a>
-            </li>
-            <li>
-              <label id="switch" class="switch">
-                <input type="checkbox" id="theme-changer">
-                <span class="slider round"></span>
-              </label>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="hamburger-menu">
-        <input id="menu__toggle" type="checkbox" />
-        <label class="menu__btn" for="menu__toggle">
-          <span></span>
-        </label>
-    
-        <ul class="menu__box">
-          <p id="datePhone"></p>
-            <li>
-              <a href="https://mhc.lapki.dev/"><span>MHCoin explorer</span></a>
-            </li>
-            <li>
-              <a href="https://t.me/joinchat/KjFam0tUwsNDIxhr__BJ3w"><span>Telegram чат</span></a>
-            </li>
-            <li>
-              <a href="https://github.com/MHCoinPublic"><span>GitHub</span></a>
-            </li>
-            <li>
-              <a href="index.html#!" class="modal_trigger" data-modal="#donate">
-                Донат
-              </a>
-            </li>
-          <li>
-            <label id="switch" class="switch">
-              <input type="checkbox" id="theme-changer">
-              <span class="slider round"></span>
-            </label>
-          </li>
-        </ul>
-      </div>
-      <div class="content">
-        <div class="spider">
-          <img src="assets/images/spider.png" alt="spider icon">
-        </div>
+                // PRICE FROM API
+                const GetData = () => {
+                    $.getJSON("https://api.coindesk.com/v1/bpi/currentprice.json").then((data) => {
+                        ducoUsdPrice = `${data["bpi"]["USD"]["rate_float"] * 0.00000001}`;
+                        let cutducoprice = 1 * ducoUsdPrice;
+                        cutducoprice = cutducoprice.toFixed(6);
+                        document.getElementById("ducousd").innerHTML = cutducoprice + " $";
+                        console.log(data);
+                    });
+                };
+                GetData();
+                // HASHRATE PREFIX CALCULATOR
+                let totalHashes = 0;
+                const calculateHashrate = (hashes) => {
+                    return 0;
+                };
 
-        <div id="donate" class="modal modal_bg">
-          <div class="modal_dialog">
-            <div class="modal_content">
-              <div class="modal_header">
-                <div class="modal_title">
-                  <h2 class="modal_title-text">Донат</h2>
+                // MINER DATA FROM API
+                const MinerAPI = (username) => {};
+
+                // PROFIT CALCULATOR
+                const ProfitCalculator = () => {
+                    let prev_bal = curr_bal;
+                    curr_bal = balance;
+                    let daily = (curr_bal - prev_bal) * 12 * 60 * 24;
+                    profitcheck++;
+                    if (curr_bal - prev_bal > 0 && profitcheck > 1) {
+                        document.getElementById("estimatedprofit").innerHTML = daily.toFixed(2) + " Պ";
+                        document.getElementById("estimatedprofitusd").innerHTML = "≈$" + (daily * ducoUsdPrice).toFixed(2);
+                    }
+                };
+
+                // ENTER KEY AS LOGIN
+                var input = document.getElementById("login");
+                input.addEventListener("keyup", function (event) {
+                    if (event.keyCode === 13) {
+                        event.preventDefault();
+                        document.getElementById("loginbutton").click();
+                    }
+                });
+
+                // MAIN WALLET SCRIPT
+                document.getElementById("loginbutton").onclick = function () {
+                    document.getElementById("loginstatus").innerHTML = "Вхожу...";
+                    let username = document.getElementById("usernameinput").value;
+                    let password = document.getElementById("passwordinput").value;
+
+                    if (username != null && username != "" && username != undefined && password != null && password != "" && password != undefined) {
+                        try {
+                            fetch("https://mhc.lapki.dev/api/users/login", {
+                                headers: {
+                                    "Content-Type": "application/json;charset=utf-8",
+                                },
+                                body: JSON.stringify({ username: username, password: password }),
+                                method: "POST",
+                            })
+                                .then((response) => {
+                                    return response.json();
+                                })
+                                .then((data) => {
+                                    if (data["status"] != "ok") {
+                                        alert("Ошибка входа: " + data["error"]);
+                                        location.reload();
+                                    }
+                                    let jwt = data["token"];
+                                    document.getElementById("jwt").text = jwt;
+                                    window.setInterval(() => {
+                                        fetch("https://mhc.lapki.dev/api/users/me", {
+                                            headers: {
+                                                Authorization: document.getElementById("jwt").text,
+                                            },
+                                            method: "GET",
+                                        })
+                                            .then((response) => {
+                                                return response.json();
+                                            })
+                                            .then((data) => {
+                                                document.getElementById("loginstatus").innerHTML = "Успешный вход!";
+                                                document.getElementById("wallettext").innerHTML = "MHCoin Web Wallet: " + username;
+                                                $("#login").hide("1000");
+                                                $("#wallet").show("2000");
+                                                balance = parseFloat(data["user"]["balance"]);
+                                                balanceusd = balance * ducoUsdPrice;
+                                                document.getElementById("balance").innerHTML = balance.toFixed(8) + " Պ";
+                                                document.getElementById("balanceusd").innerHTML = "≈$" + balanceusd.toFixed(4);
+                                                //                                 loginstatus.innerHTML = "Успешный вход!";
+                                                //
+                                                //                                 let username = document.getElementById("username").value;
+                                                //
+                                                //                                 navname.innerHTML = username;
+                                                //
+                                                //                                 window.setInterval(() => {
+                                                //                                     loader.style.display = "none";
+                                                //                                     loader.style.opacity = "0";
+                                                //
+                                                //                                     walletpage.style.display = "block";
+                                                //                                     walletpage.style.opacity = "1";
+                                                //                                 }, 500);
+                                                //
+                                                //                                 balanceusd = ducoprice * data["user"]["balance"];
+                                                //                                 balanceusd = balanceusd.toFixed(2);
+                                                //
+                                                //                                 balance = data["user"]["balance"] * 1;
+                                                //                                 cutbalance = balance.toFixed(6);
+                                                //
+                                                //                                 if (Number.isNaN(balanceusd)) balanceusd = " Ошибка";
+                                                //                                 document.getElementById("balancetext").innerHTML = cutbalance + " Պ ($" + balanceusd + ")";
+                                                //     alert(JSON.stringify(data))
+                                            });
+                                    }, 1000);
+                                });
+                        } catch (error) {
+                            alert("Ошибка входа!");
+                            location.reload();
+                        }
+                    } else {
+                        document.getElementById("loginstatus").innerHTML = "<span class='has-text-danger'>Поля не заполнены</span>";
+                        setTimeout(() => {
+                            document.getElementById("loginstatus").innerHTML = "";
+                        }, 5000);
+                    }
+                };
+            });
+        </script>
+    </head>
+    <body>
+        <div class="containers">
+            <section class="hero is-fullheight">
+                <div class="hero-body is-align-self-center">
+                    <div class="box">
+                        <p class="title">
+                            <img src="https://github.com/revoxhere/duino-coin/blob/master/Resources/NewWallet.ico?raw=true" class="icon" />
+                            <span id="wallettext">
+                                MHCoin Web Wallet
+                                <span class="subtitle">
+                                    v2.3
+                                </span>
+                            </span>
+                        </p>
+
+                        <p class="subtitle has-text-grey-dark">
+                            by
+                            <a href="https://t.me/lapkioff">Lapki</a>
+                            &
+                            <a href="https://github.com/LDarki">LDarki</a>
+                            <span class="is-size-7 has-text-grey">
+                                2020-2021
+                            </span>
+                        </p>
+                        <section id="login">
+                            <div class="column">
+                                <div class="field">
+                                    <label for="" class="label">Ник</label>
+                                    <div class="control has-icons-left">
+                                        <input type="text" id="usernameinput" placeholder="e.g. httsmvkcom" class="input" required />
+                                        <span class="icon is-small is-left">
+                                            <i class="fa fa-user"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label for="" class="label">Пароль</label>
+                                    <div class="control has-icons-left">
+                                        <input type="password" id="passwordinput" placeholder="*******" class="input" required />
+                                        <span class="icon is-small is-left">
+                                            <i class="fa fa-lock"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="field">
+                                    <div class="buttons">
+                                        <button class="button is-success" id="loginbutton"><i class="fa fa-fw fa-check"></i>&nbsp; Войти</button>
+                                        <span class="subtitle mb-2 has-text-grey is-size-7" id="loginstatus"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="wallet" style="display: none;">
+                            <div class="container">
+                                <div class="columns">
+                                    <div class="column">
+                                        <div class="box">
+                                            <p class="subtitle">
+                                                <i class="fa fa-wallet fa-fw" style="color: #f39c12;"></i>
+                                                Баланс
+                                            </p>
+                                            <p class="title">
+                                                <span id="balance">
+                                                    0.0 Պ
+                                                </span>
+                                                <span class="subtitle" id="balanceusd">
+                                                    $0.0
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="column">
+                                        <div class="box">
+                                            <p class="subtitle">
+                                                <i class="fa fa-money-bill-wave fa-fw" style="color: #0abde3;"></i>
+                                                Цена
+                                            </p>
+                                            <p class="title">
+                                                <span id="ducousd">
+                                                    1 Պ ≈ $0.0
+                                                </span>
+                                                <span class="subtitle" id="estimatedprofitusd"> </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="columns">
+                                    <div class="column">
+                                        <div class="buttons">
+                                            <button id="darkmode" class="button is-secondary">
+                                                <i class="fa fa-fw fa-sun is-small icon"></i>&nbsp;
+                                                <span>Сменить тему</span>
+                                            </button>
+                                            <a href="https://github.com/MHCoinPublic" class="button is-secondary">
+                                                <i class="fab fa-fw fa-github icon is-small"></i>&nbsp;
+                                                <span>GitHub</span>
+                                            </a>
+                                            <a href="https://t.me/joinchat/KjFam0tUwsNDIxhr__BJ3w" class="button is-secondary">
+                                                <i class="fab fa-fw fa-telegram icon is-small"></i>&nbsp;
+                                                <span>Telegram чат</span>
+                                            </a>
+                                            <a href="https://mhc.lapki.dev/" class="button is-secondary">
+                                                <img
+                                                    class="icon is-small"
+                                                    src="https://cdn4.telesco.pe/file/hExvOeKwS7St4nPLedqxXdflhPBsmSD7YNmjT6Sj4cVpBNRqLyy97w83iIYS622vMW9rpQ1PHKA2-V54tQ8tdPgDNvHCNi5BO_cXBSScG7BvkUMILxQlXJvKNIFbNueyw9D-1y7W1QHXLkPZ_wELdMfEbHMf0TvnuSsA3t5S-eyEq9eR5quvH8E60WdqG46nmMBxRpIBlyz_T-FepXI7ppivCdgohBOw7lPz-tjiBZud7-SlxwQbiL-kiHnu6PbRqDPltupjd3wfucNyYghk5hhvEPlYkH7yW3WX5Y70FIZeR-AkjYlOGh0O1fyb_VEcdapZJj5DtQDYKkjNmoDNmA.jpg"
+                                                />
+                                                <span>Проводник</span>
+                                            </a>
+                                            <a href="https://mhc.lapki.dev/donate" class="button is-secondary">
+                                                <i class="fa fa-fw fa-heart icon is-small" style="color: #eb4d4b;"></i>&nbsp;
+                                                <span>Донат</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
                 </div>
-
-                <button class="modal_close">
-                  X
-                </button>
-              </div>
-
-              <div class="modal_text">
-                Bitcoin: 
-                <form>
-                <input type="text" value="1LAPkiDEVytqiPc389GWusxqoqvkXS9hbE" id="btc">
-                <div class="tooltip">
-                  <button id="donate" data-id="btc" data-tooltip="btc-toolTip">
-                    Копировать
-                  </button>
-                </div>
-              </form><br/>
-
-                Monero: 
-                <form>
-                <input type="text"
-                  value="49LapkiCFBuQwj7KpeXGyHfdQ2F2EMn6BLiPvJ3sqwUkjGBd7FZQgxGipvsPChF41vawjnFmcmGPTXS72kxMXKu99vMfH41"
-                  id="xmr">
-                <div class="tooltip">
-                  <button id="donate" data-id="xmr" data-tooltip="xmr-toolTip">
-                    Copy
-                  </button>
-                </div>
-              </form><br/>
-              
-              </div>
-              <div class="modal_footer">
-                Если вы хотите задонатить другими способами <a style="color: #f39c12"
-                  href="https://t.me/httsmvkcom">напишите нам</a>.
-              </div>
-
-            </div>
-          </div>
+            </section>
         </div>
-
-        <div class="row">
-          <div class="data-card col-xl-3 col-lg-3 col-md-6 col-sm-11 center">
-            <div class="wrap">
-              <h4 class="data-card__title">Ваш баланс</h4>
-              <span class="data-card__count" id="balancetext">Загрузка</span>
-            </div>
-          </div>
-
-          <div class="data-card col-xl-3 col-lg-3 col-md-6 col-sm-11 center">
-            <div class="wrap">
-              <h4 class="data-card__title">1 MHC стоит</h4>
-              <span class="data-card__count" id="ducoprice">Загрузка</span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-        <div class="data-card col-3 col-sm-11 col-md-6 col-lg-3 center">
-          <div class="funds wrap">
-            <br>
-            <h4 class="data-card__title">Отправить средства</h4>
-            <p></p>
-            <input type="text" id="recipient" placeholder="Получатель">
-            <p></p>
-            <input type="text" id="amountInput" placeholder="Сумма">
-            <p style="margin: 6px;"></p>
-            <div id="fundInput" class="buttons">
-              <button type='button' class="btn-custom" id="send">Отправить</button>
-            </div>
-            <hr style="visibility: hidden;"/>
-            <div class="hide" id="notificate">
-              Успешно отправлено
-              <label class="close alertC">
-                X
-              </label>
-            </div>
-            <div class="hide" id="notificateErr">
-              Ошибка
-              <label class="close alertCErr">
-                X
-              </label>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-        <hr style="border-color: #1b1f2e !important;"/>
-
-      </div>
-      <div class="footer">MHCoin WebWallet made by LDarki and edited by Lapki 2021
-        | Background photo by Lapki.</div>
-    </div>
-  </div>
-  </div>
-  <div id="jwt" style="display:none"></div>
-  <script src="assets/js/coreUI.js"></script>
-</body>
-
+        <div id="jwt" style="display: none;"></div>
+    </body>
 </html>
